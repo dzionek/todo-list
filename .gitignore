@@ -1,5 +1,5 @@
 # Pycharm project
-.idea
+.idea/
 
 # Python Virtual Environment
 venv/
@@ -10,3 +10,6 @@ venv/
 
 # SQL Lite Database
 db.sqlite3
+
+# NPM packages
+frontend/node_modules/
