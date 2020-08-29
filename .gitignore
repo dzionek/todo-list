@@ -1,0 +1,9 @@
+# Pycharm project
+.idea
+
+# Python Virtual Environment
+venv/
+
+# Django migrations
+*/migrations/*
+!*/migrations/__init__.py
