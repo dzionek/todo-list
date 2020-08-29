@@ -13,3 +13,6 @@ db.sqlite3
 
 # NPM packages
 frontend/node_modules/
+
+# Dist
+frontend/static/

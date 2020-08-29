@@ -1,6 +1,6 @@
 import React from "react"
 
-import ToDoItem from "./ToDoItem"
+import DoneItem from "./DoneItem"
 import {Item} from './SuperList'
 
 
@@ -15,7 +15,7 @@ function ToDoList(props: ToDoListProps) {
         <div id="todo-list">
             {props.items.map(item => {
                 return (
-                    <ToDoItem
+                    <DoneItem
                         key={item.id}
                         id={item.id}
                         description={item.description}

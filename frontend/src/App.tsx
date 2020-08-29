@@ -1,11 +1,13 @@
 import React from 'react'
 
-import ToDoList from './components/ToDoList'
+import SuperList from './components/SuperList'
 
 
 function App() {
     return (
-        <ToDoList/>
+        <div className="container">
+            <SuperList />
+        </div>
     )
 }
 
