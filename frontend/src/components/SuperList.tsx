@@ -33,12 +33,20 @@ function SuperList() {
             })
     }, [])
 
+    const sortByLastModified = (items: Item[]) => {
+        return items.sort((a, b) => {
+            const aDate = new Date(a.last_modified)
+            const bDate = new Date(b.last_modified)
+            return bDate.valueOf() - aDate.valueOf()
+        })
+    }
+
     const getCurrentItems = () => {
-        return items.filter(item => !item.is_finished)
+        return sortByLastModified(items.filter(item => !item.is_finished))
     }
 
     const getDoneItems = () => {
-        return items.filter(item => item.is_finished)
+        return sortByLastModified(items.filter(item => item.is_finished))
     }
 
     if (hasFailed) {

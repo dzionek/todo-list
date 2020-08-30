@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import axios from "axios"
 import {CirclePicker, ColorResult} from "react-color"
 
@@ -10,7 +10,8 @@ export interface ToDoItemProps {
     id: number,
     name: string,
     description: string,
-    createdAt: string
+    createdAt: string,
+    lastModified: string,
     isFinished: boolean,
     color: "white" | "green" | "yellow" | "red",
     setItems: React.Dispatch<React.SetStateAction<Item[]>>
@@ -25,13 +26,20 @@ colorNames.set("#ff0000", "red")
 
 
 function ToDoItem(props: ToDoItemProps) {
+    const [animation, setAnimation] = useState<null | "mount" | "unmount">(null)
+
     useEffect(() => {
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
         axios.defaults.xsrfCookieName = "csrftoken"
+        setAnimation('mount')
     }, [])
 
     const handleClick = (id: number) => {
         axios.patch(`api/tasks/${id}/`, {'is_finished': true})
+            .then(async () => {
+                setAnimation('unmount')
+                await new Promise(r => setTimeout(r, 500))
+            })
             .then(() => {
                 props.setItems(prevState => {
                     return prevState.map(item => {
@@ -90,9 +98,17 @@ function ToDoItem(props: ToDoItemProps) {
             })
     }
 
+    let cardStyles
+
+    if (animation !== null) {
+        cardStyles = {
+            animationName: animation
+        }
+    }
+
     if (!props.isFinished) {
         return (
-            <div className={cardClassName}>
+            <div className={cardClassName} style={cardStyles}>
                 <div className="card-body">
                     <h5 className="card-title">{props.name}</h5>
                     <p className="card-text">{props.description}</p>

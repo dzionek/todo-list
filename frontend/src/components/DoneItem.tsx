@@ -1,30 +1,32 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import axios from "axios"
 
 import {getDateFromNow} from '../utils/date'
 import {ToDoItemProps} from "./ToDoItem";
 
 
-interface DoneItemProps extends ToDoItemProps {
-    lastModified: string
-}
-
-
-function DoneItem(props: DoneItemProps) {
+function DoneItem(props: ToDoItemProps) {
+    const [animation, setAnimation] = useState<null | "mount" | "unmount">(null)
 
     useEffect(() => {
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
         axios.defaults.xsrfCookieName = "csrftoken"
+        setAnimation('mount')
     }, [])
 
     const handleClick = (id: number) => {
         axios.patch(`api/tasks/${id}/`, {'is_finished': false})
+            .then(async () => {
+                setAnimation('unmount')
+                await new Promise(r => setTimeout(r, 500))
+            })
             .then(() => {
                 props.setItems(prevState => {
                     return prevState.map(item => {
                         if (item.id === id) {
                             return {
                                 ...item,
+                                last_modified: Date().toString(),
                                 is_finished: false
                             }
                         } else {
@@ -35,9 +37,17 @@ function DoneItem(props: DoneItemProps) {
             })
     }
 
+    let cardStyles
+
+    if (animation !== null) {
+        cardStyles = {
+            animationName: animation
+        }
+    }
+
     if (props.isFinished) {
         return (
-            <div className="card text-center todo-item text-white bg-dark">
+            <div className="card text-center todo-item text-white bg-dark" style={cardStyles}>
                 <div className="card-body">
                     <h5 className="card-title">{props.name}</h5>
                     <span className="dot" style={{'backgroundColor': props.color}}/>

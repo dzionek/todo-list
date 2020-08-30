@@ -1,3 +1,26 @@
+@keyframes mount {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes unmount {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+
 #todo-list {
   text-align: center;
 }
@@ -6,6 +29,10 @@
   margin-bottom: 2%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+  overflow: hidden;
+  transform-origin:top;
+  animation-duration: 0.5s;
 
   .colors-picker {
     display: block !important;
