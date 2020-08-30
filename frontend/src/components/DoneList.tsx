@@ -18,9 +18,11 @@ function ToDoList(props: ToDoListProps) {
                     <DoneItem
                         key={item.id}
                         id={item.id}
+                        name={item.name}
                         description={item.description}
                         createdAt={item.created_at}
                         isFinished={item.is_finished}
+                        color={item.color}
                         setItems={props.setItems}
                     />
                 )

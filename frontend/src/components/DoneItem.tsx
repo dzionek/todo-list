@@ -1,19 +1,11 @@
 import React, {useEffect} from "react"
 import axios from "axios"
 
-import {Item} from './SuperList'
+import {getDateFromNow} from '../utils/date'
+import {ToDoItemProps} from "./ToDoItem";
 
 
-interface ToDoItemProps {
-    id: number,
-    description: string,
-    createdAt: string
-    isFinished: boolean,
-    setItems: React.Dispatch<React.SetStateAction<Item[]>>
-}
-
-
-function ToDoItem(props: ToDoItemProps) {
+function DoneItem(props: ToDoItemProps) {
 
     useEffect(() => {
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
@@ -40,13 +32,15 @@ function ToDoItem(props: ToDoItemProps) {
 
     if (props.isFinished) {
         return (
-            <div className="todo-item">
-                <h1>
-                    Task {props.id}
-                </h1>
-                <small>{props.createdAt}</small>
-                <p>{props.description}</p>
-                <button onClick={() => handleClick(props.id)}>Undone</button>
+            <div className="card text-center todo-item">
+                <div className="card-body">
+                    <h5 className="card-title">{props.name}</h5>
+                    <p className="card-text">{props.description}</p>
+                    <button onClick={() => handleClick(props.id)} className="btn btn-primary">Undone</button>
+                </div>
+                <div className="card-footer text-muted">
+                    created: {getDateFromNow(props.createdAt)}
+                </div>
             </div>
         )
     } else {
@@ -54,4 +48,4 @@ function ToDoItem(props: ToDoItemProps) {
     }
 }
 
-export default ToDoItem
+export default DoneItem

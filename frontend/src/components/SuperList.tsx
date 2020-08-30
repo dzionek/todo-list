@@ -7,9 +7,11 @@ import DoneList from './DoneList'
 
 export interface Item {
     id: number,
+    name: string,
     description: string,
     created_at: string
-    is_finished: boolean
+    is_finished: boolean,
+    color: "white" | "green" | "yellow" | "red"
 }
 
 
