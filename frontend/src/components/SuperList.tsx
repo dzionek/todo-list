@@ -12,7 +12,7 @@ export interface Item {
     created_at: string,
     last_modified: string,
     is_finished: boolean,
-    color: "white" | "green" | "yellow" | "red"
+    color: "blue" | "green" | "yellow" | "red"
 }
 
 

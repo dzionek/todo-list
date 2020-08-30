@@ -13,13 +13,13 @@ export interface ToDoItemProps {
     createdAt: string,
     lastModified: string,
     isFinished: boolean,
-    color: "white" | "green" | "yellow" | "red",
+    color: "blue" | "green" | "yellow" | "red",
     setItems: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
 
 const colorNames = new Map()
-colorNames.set("#ffffff", "white")
+colorNames.set("#0000ff", "blue")
 colorNames.set("#008000", "green")
 colorNames.set("#ffff00", "yellow")
 colorNames.set("#ff0000", "red")
@@ -59,12 +59,12 @@ function ToDoItem(props: ToDoItemProps) {
 
     let cardClassName = "card text-center todo-item"
     let cardFooterClassName = "card-footer"
-    let colors = ["white", "green", "yellow", "red"]
+    let colors = ["blue", "green", "yellow", "red"]
 
     switch (props.color) {
-        case "white":
-            cardFooterClassName += " text-muted"
-            colors = colors.filter(color => color !== "white")
+        case "blue":
+            cardClassName += " text-white bg-info"
+            colors = colors.filter(color => color !== "blue")
             break
         case "green":
             cardClassName += " text-white bg-success"

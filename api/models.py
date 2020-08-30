@@ -10,7 +10,7 @@ class Task(models.Model):
     is_finished = models.BooleanField(default=False)
 
     class Color(models.TextChoices):
-        WHITE = 'white'
+        BLUE = 'blue'
         GREEN = 'green'
         YELLOW = 'yellow'
         RED = 'red'
@@ -18,7 +18,7 @@ class Task(models.Model):
     color = models.CharField(
         max_length=6,
         choices=Color.choices,
-        default=Color.WHITE,
+        default=Color.BLUE,
     )
 
     def __str__(self):
