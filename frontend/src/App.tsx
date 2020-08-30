@@ -1,12 +1,12 @@
 import React from 'react'
 
-import SuperList from './components/SuperList'
+import ItemsFetcher from "./components/ItemsFetcher";
 
 
 function App() {
     return (
         <div className="container">
-            <SuperList />
+            <ItemsFetcher />
         </div>
     )
 }

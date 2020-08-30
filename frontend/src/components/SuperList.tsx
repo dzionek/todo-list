@@ -1,38 +1,17 @@
-import React, {useEffect, useState} from "react"
-import axios from "axios"
+import React, {Dispatch, SetStateAction} from "react"
 
 import ToDoList from './ToDoList'
 import DoneList from './DoneList'
+import {Item} from "../utils/typing";
 
 
-export interface Item {
-    id: number,
-    name: string,
-    description: string,
-    created_at: string,
-    last_modified: string,
-    is_finished: boolean,
-    color: "blue" | "green" | "yellow" | "red"
+interface SuperListProps {
+    items: Item[]
+    setItems: Dispatch<SetStateAction<Item[]>>
 }
 
 
-function SuperList() {
-    const [items, setItems] = useState<Item[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [hasFailed, setHasFailed] = useState(false)
-
-    useEffect(() => {
-        setIsLoading(true)
-        axios.get('api/tasks/')
-            .then(response => {
-                setItems(response.data)
-                setIsLoading(false)
-            })
-            .catch(() => {
-                setHasFailed(true)
-            })
-    }, [])
-
+function SuperList(props: SuperListProps) {
     const sortByLastModified = (items: Item[]) => {
         return items.sort((a, b) => {
             const aDate = new Date(a.last_modified)
@@ -42,37 +21,31 @@ function SuperList() {
     }
 
     const getCurrentItems = () => {
-        return sortByLastModified(items.filter(item => !item.is_finished))
+        return sortByLastModified(props.items.filter(item => !item.is_finished))
     }
 
     const getDoneItems = () => {
-        return sortByLastModified(items.filter(item => item.is_finished))
+        return sortByLastModified(props.items.filter(item => item.is_finished))
     }
 
-    if (hasFailed) {
-        return <div>ERROR</div>
-    } else if (isLoading) {
-        return <div>Loading...</div>
-    } else {
-        return (
-            <div className="row" id="super-list">
-                <div className="col-sm-6">
-                    <h1>Current tasks</h1>
-                    <ToDoList
-                        items={getCurrentItems()}
-                        setItems={setItems}
-                    />
-                </div>
-                <div className="col-sm-6">
-                    <h1>Done tasks</h1>
-                    <DoneList
-                        items={getDoneItems()}
-                        setItems={setItems}
-                    />
-                </div>
+    return (
+        <div className="row" id="super-list">
+            <div className="col-sm-6">
+                <h1>Current tasks</h1>
+                <ToDoList
+                    items={getCurrentItems()}
+                    setItems={props.setItems}
+                />
             </div>
-        )
-    }
+            <div className="col-sm-6">
+                <h1>Done tasks</h1>
+                <DoneList
+                    items={getDoneItems()}
+                    setItems={props.setItems}
+                />
+            </div>
+        </div>
+    )
 }
 
 export default SuperList

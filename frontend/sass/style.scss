@@ -25,6 +25,10 @@
   text-align: center;
 }
 
+.color-picker-general {
+  width: auto !important;
+}
+
 .todo-item {
   margin-bottom: 2%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -35,11 +39,17 @@
   animation-duration: 0.5s;
 
   .colors-picker {
+    @extend .color-picker-general;
+    top: 10%;
     display: block !important;
     position: absolute;
-    top: 10%;
-    width: auto !important;
   }
+}
+
+.color-picker-add {
+  width: fit-content !important;
+  margin-right: auto !important;
+  margin-left: auto;
 }
 
 .todo-item:hover {

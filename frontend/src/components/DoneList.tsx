@@ -1,7 +1,7 @@
 import React from "react"
 
 import DoneItem from "./DoneItem"
-import {Item} from './SuperList'
+import {Item} from '../utils/typing'
 
 
 export interface ToDoListProps {
