@@ -6,10 +6,27 @@
   margin-bottom: 2%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+  .colors-picker {
+    display: block !important;
+    position: absolute;
+    top: 10%;
+    width: auto !important;
+  }
 }
 
 .todo-item:hover {
   box-shadow: 0 7px 14px rgba(0,0,0,0.20), 0 5px 5px rgba(0,0,0,0.22);
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 12%;
+  left: 10%;
 }
 
 #super-list > div > h1 {

@@ -38,6 +38,7 @@ function ToDoItem(props: ToDoItemProps) {
                         if (item.id === id) {
                             return {
                                 ...item,
+                                last_modified: Date().toString(),
                                 is_finished: true
                             }
                         } else {
@@ -96,6 +97,7 @@ function ToDoItem(props: ToDoItemProps) {
                     <h5 className="card-title">{props.name}</h5>
                     <p className="card-text">{props.description}</p>
                     <CirclePicker
+                        className="colors-picker"
                         colors={colors}
                         onChange={(color) => handleColorChange(color, props.id)}
                     />

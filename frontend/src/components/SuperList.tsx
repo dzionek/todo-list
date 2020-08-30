@@ -9,7 +9,8 @@ export interface Item {
     id: number,
     name: string,
     description: string,
-    created_at: string
+    created_at: string,
+    last_modified: string,
     is_finished: boolean,
     color: "white" | "green" | "yellow" | "red"
 }

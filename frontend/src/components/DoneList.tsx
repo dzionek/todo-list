@@ -21,6 +21,7 @@ function ToDoList(props: ToDoListProps) {
                         name={item.name}
                         description={item.description}
                         createdAt={item.created_at}
+                        lastModified={item.last_modified}
                         isFinished={item.is_finished}
                         color={item.color}
                         setItems={props.setItems}

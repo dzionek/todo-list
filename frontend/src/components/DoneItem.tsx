@@ -5,7 +5,12 @@ import {getDateFromNow} from '../utils/date'
 import {ToDoItemProps} from "./ToDoItem";
 
 
-function DoneItem(props: ToDoItemProps) {
+interface DoneItemProps extends ToDoItemProps {
+    lastModified: string
+}
+
+
+function DoneItem(props: DoneItemProps) {
 
     useEffect(() => {
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
@@ -32,14 +37,17 @@ function DoneItem(props: ToDoItemProps) {
 
     if (props.isFinished) {
         return (
-            <div className="card text-center todo-item">
+            <div className="card text-center todo-item text-white bg-dark">
                 <div className="card-body">
                     <h5 className="card-title">{props.name}</h5>
+                    <span className="dot" style={{'backgroundColor': props.color}}/>
                     <p className="card-text">{props.description}</p>
-                    <button onClick={() => handleClick(props.id)} className="btn btn-primary">Undone</button>
+                    <button onClick={() => handleClick(props.id)} className="btn btn-info">Undone</button>
                 </div>
                 <div className="card-footer text-muted">
-                    created: {getDateFromNow(props.createdAt)}
+                    <span className="mr-4">created: {getDateFromNow(props.createdAt)}</span>
+                    |
+                    <span className="ml-4">done: {getDateFromNow(props.lastModified)}</span>
                 </div>
             </div>
         )
