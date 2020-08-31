@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios"
+import {FaTimes} from "react-icons/fa"
 
 import {getDateFromNow} from '../utils/date'
 import {ToDoItemProps} from "./ToDoItem";
@@ -37,6 +38,19 @@ function DoneItem(props: ToDoItemProps) {
             })
     }
 
+    const handleDelete = (id: number) => {
+        axios.delete(`api/tasks/${id}/`)
+            .then(async () => {
+                setAnimation('unmount')
+                await new Promise(r => setTimeout(r, 500))
+            })
+            .then(() => {
+                props.setItems(prevState => {
+                    return prevState.filter(item => item.id !== id)
+                })
+            })
+    }
+
     let cardStyles
 
     if (animation !== null) {
@@ -49,6 +63,7 @@ function DoneItem(props: ToDoItemProps) {
         <div className="card text-center todo-item text-white bg-dark" style={cardStyles}>
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
+                <FaTimes className="x-symbol" onClick={() => handleDelete(props.id)}/>
                 <span className="dot" style={{'backgroundColor': props.color}}/>
                 <p className="card-text">{props.description}</p>
                 <button onClick={() => handleClick(props.id)} className="btn btn-info">Undone</button>

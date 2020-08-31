@@ -4,6 +4,7 @@ import {CirclePicker, ColorResult} from "react-color"
 
 import {Item, Color} from '../utils/typing'
 import {getDateFromNow} from '../utils/date'
+import {FaTimes} from "react-icons/fa";
 
 
 export interface ToDoItemProps {
@@ -53,6 +54,19 @@ function ToDoItem(props: ToDoItemProps) {
                             return item
                         }
                     })
+                })
+            })
+    }
+
+    const handleDelete = (id: number) => {
+        axios.delete(`api/tasks/${id}/`)
+            .then(async () => {
+                setAnimation('unmount')
+                await new Promise(r => setTimeout(r, 500))
+            })
+            .then(() => {
+                props.setItems(prevState => {
+                    return prevState.filter(item => item.id !== id)
                 })
             })
     }
@@ -111,6 +125,7 @@ function ToDoItem(props: ToDoItemProps) {
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">{props.description}</p>
+                <FaTimes className="x-symbol" onClick={() => handleDelete(props.id)}/>
                 <CirclePicker
                     className="colors-picker"
                     colors={colors}

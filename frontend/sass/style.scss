@@ -66,6 +66,18 @@
   left: 10%;
 }
 
+.x-symbol {
+  color: #800000;
+  height: 30px;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+}
+
+.x-symbol:hover {
+  transform: scale(1.3);
+}
+
 #super-list > div > h1 {
   text-align: center;
   margin-top: 5%;
