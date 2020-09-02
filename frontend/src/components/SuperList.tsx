@@ -31,14 +31,18 @@ function SuperList(props: SuperListProps) {
     return (
         <div className="row" id="super-list">
             <div className="col-sm-6">
-                <h1>Current tasks</h1>
+                <div className="tasks-title rounded-pill">
+                    <h5>Current tasks</h5>
+                </div>
                 <ToDoList
                     items={getCurrentItems()}
                     setItems={props.setItems}
                 />
             </div>
             <div className="col-sm-6">
-                <h1>Done tasks</h1>
+                <div className="tasks-title rounded-pill">
+                    <h5>Done tasks</h5>
+                </div>
                 <DoneList
                     items={getDoneItems()}
                     setItems={props.setItems}

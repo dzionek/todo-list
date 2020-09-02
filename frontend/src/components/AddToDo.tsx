@@ -68,13 +68,13 @@ function AddToDo(props: AddToDoProps) {
 
     return (
         <div className="row mt-4 mb-4">
-            <div className="col-sm-2"/>
-            <div className="col-sm-8">
-                <div className={cardClassName}>
+            <div className="col-lg-2"/>
+            <div className="col-lg-8">
+                <div className={cardClassName} id="add-card">
                     <div className="card-header text-white text-center py-2"><h5>Add a new task</h5></div>
                     <div className="card-body">
-                        <form className="form-row" onSubmit={handleSubmit}>
-                            <div className="col">
+                        <form className="form-row">
+                            <div className="col-lg">
                                 <div className="form-group">
                                     <input
                                         type="text"
@@ -84,7 +84,8 @@ function AddToDo(props: AddToDoProps) {
                                         onChange={(event) => setTitle(event.target.value)}
                                     />
                                 </div>
-                                <div>
+                                <div id="add-card-colors">
+                                    <span>Color:</span>
                                     <CirclePicker
                                         colors={colors}
                                         className="color-picker-add"
@@ -92,25 +93,25 @@ function AddToDo(props: AddToDoProps) {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
-                        <textarea
-                            className="form-control"
-                            id="taskDescription"
-                            placeholder="Description of your task"
-                            rows={3}
-                            style={{"resize": "none"}}
-                            value={description}
-                            onChange={(event) => setDescription(event.target.value)}
-                        />
+                            <div className="col-lg">
+                                <textarea
+                                    className="form-control"
+                                    id="taskDescription"
+                                    placeholder="Description of your task"
+                                    rows={3}
+                                    style={{"resize": "none"}}
+                                    value={description}
+                                    onChange={(event) => setDescription(event.target.value)}
+                                />
                             </div>
-                            <button type="submit" className="btn btn-primary">
-                                Add it!
-                            </button>
                         </form>
                     </div>
+                    <button type="submit" className="btn btn-primary rounded" id="add-card-button" onClick={handleSubmit}>
+                        Add it!
+                    </button>
                 </div>
             </div>
-            <div className="col-sm-2"/>
+            <div className="col-lg-2"/>
         </div>
     )
 }

@@ -124,7 +124,7 @@ function ToDoItem(props: ToDoItemProps) {
         <div className={cardClassName} style={cardStyles}>
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
-                <p className="card-text">{props.description}</p>
+                <p className="card-text task-description">{props.description}</p>
                 <FaTimes className="x-symbol" onClick={() => handleDelete(props.id)}/>
                 <CirclePicker
                     className="colors-picker"

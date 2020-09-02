@@ -68,10 +68,9 @@ function DoneItem(props: ToDoItemProps) {
                 <p className="card-text">{props.description}</p>
                 <button onClick={() => handleClick(props.id)} className="btn btn-info">Undone</button>
             </div>
-            <div className="card-footer text-muted">
-                <span className="mr-4">created: {getDateFromNow(props.createdAt)}</span>
-                |
-                <span className="ml-4">done: {getDateFromNow(props.lastModified)}</span>
+            <div className="card-footer text-muted row">
+                <div className="col-lg card-footer-created">created: {getDateFromNow(props.createdAt)}</div>
+                <div className="col-lg card-footer-done">done: {getDateFromNow(props.lastModified)}</div>
             </div>
         </div>
     )
