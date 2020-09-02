@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack --mode development ./src/index.tsx",
     "dev:watch": "webpack --mode development --watch ./src/index.tsx",
-    "build": "webpack --mode production ./src/index.tsx"
+    "build": "webpack --mode production ./src/index.tsx",
+    "eslint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "author": "Bartosz Dzionek",
   "license": "MIT",
