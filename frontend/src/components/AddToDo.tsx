@@ -106,7 +106,7 @@ function AddToDo(props: AddToDoProps) {
                             </div>
                         </form>
                     </div>
-                    <button type="submit" className="btn btn-primary rounded" id="add-card-button" onClick={handleSubmit}>
+                    <button type="submit" className="btn btn-primary rounded material-light-shadow" id="add-card-button" onClick={handleSubmit}>
                         Add it!
                     </button>
                 </div>

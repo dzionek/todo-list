@@ -132,6 +132,29 @@ $light-color: #e5e4e4;
   text-align: left;
 }
 
+.editable-input {
+  background: rgba(0, 0, 0, 0.2);
+  border: black solid 1px;
+  text-align: center;
+  color: white;
+}
+
+.top-content-input {
+  @extend .editable-input;
+
+  width: 50%;
+  margin-bottom: 3%;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.bottom-content-input {
+  @extend .editable-input;
+
+  width: 80%;
+  margin-bottom: 3%;
+}
+
 //Bootstrap large
 @media (max-width: 992px) {
   $bottom-margin-no-cols: 1.5rem;

@@ -27,7 +27,7 @@ function DoneItem(props: ToDoItemProps) {
                         if (item.id === id) {
                             return {
                                 ...item,
-                                last_modified: Date().toString(),
+                                last_modified: new Date().toISOString(),
                                 is_finished: false
                             }
                         } else {
