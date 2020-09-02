@@ -1,15 +1,12 @@
 import React from "react"
 
 import ToDoItem from "./ToDoItem"
-import {Item} from '../utils/typing'
+import {ItemsFetcherChildProps as ToDoListProps} from '../utils/typing'
 
 
-export interface ToDoListProps {
-    items: Item[],
-    setItems: React.Dispatch<React.SetStateAction<Item[]>>
-}
-
-
+/**
+ * The component with the list of items that have not yet been done.
+ */
 function ToDoList(props: ToDoListProps) {
     return (
         <div id="todo-list">

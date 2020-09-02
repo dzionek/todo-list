@@ -1,18 +1,19 @@
-import React, {Dispatch, SetStateAction} from "react"
+import React from "react"
 
 import ToDoList from './ToDoList'
 import DoneList from './DoneList'
-import {Item} from "../utils/typing";
+import {Item, ItemsFetcherChildProps as SuperListProps} from "../utils/typing";
 
-
-interface SuperListProps {
-    items: Item[]
-    setItems: Dispatch<SetStateAction<Item[]>>
-}
-
-
+/**
+ * The component containing the two lists - current items and done items.
+ */
 function SuperList(props: SuperListProps) {
-    const sortByLastModified = (items: Item[]) => {
+    /**
+     * Sort the given items by the date of the last modification.
+     * The file edited lately has precedence over the one edited before.
+     * @param items  The items fetched from API.
+     */
+    const sortByLastModified = (items: Item[]): Item[] => {
         return items.sort((a, b) => {
             const aDate = new Date(a.last_modified)
             const bDate = new Date(b.last_modified)
@@ -20,11 +21,17 @@ function SuperList(props: SuperListProps) {
         })
     }
 
-    const getCurrentItems = () => {
+    /**
+     * Get the array of items that have not yet been done.
+     */
+    const getCurrentItems = (): Item[] => {
         return sortByLastModified(props.items.filter(item => !item.is_finished))
     }
 
-    const getDoneItems = () => {
+    /**
+     * Get the array of items that have already been done.
+     */
+    const getDoneItems = (): Item[] => {
         return sortByLastModified(props.items.filter(item => item.is_finished))
     }
 

@@ -5,13 +5,20 @@ import {Item} from "../utils/typing";
 import AddToDo from "./AddToDo";
 import SuperList from "./SuperList";
 
-
+/**
+ * The component responsible for fetching items from API
+ * passing them to sub-components.
+ */
 function ItemsFetcher() {
     const [items, setItems] = useState<Item[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [hasFailed, setHasFailed] = useState(false)
 
     useEffect(() => {
+        // Axios settings to handle CSRF token validation in Django.
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+        axios.defaults.xsrfCookieName = "csrftoken"
+
         setIsLoading(true)
         axios.get('api/tasks/')
             .then(response => {

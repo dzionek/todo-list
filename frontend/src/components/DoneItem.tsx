@@ -1,49 +1,38 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 import axios from "axios"
 import {FaTimes} from "react-icons/fa"
 
-import {getDateFromNow} from '../utils/date'
-import {ToDoItemProps} from "./ToDoItem";
+import {getDateFromNow, getCurrentDate} from '../utils/date'
+import {ItemProps as DoneItemProps, Animation} from "../utils/typing";
+import {waitForUnmountAnimation} from "../utils/animation";
+import {patchItemsProps} from "../utils/setters";
 
+/**
+ * The component of the item that has already been done.
+ */
+function DoneItem(props: DoneItemProps) {
+    const [animation, setAnimation] = useState<Animation>("mount")
 
-function DoneItem(props: ToDoItemProps) {
-    const [animation, setAnimation] = useState<null | "mount" | "unmount">(null)
-
-    useEffect(() => {
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-        axios.defaults.xsrfCookieName = "csrftoken"
-        setAnimation('mount')
-    }, [])
-
+    /**
+     * Revert the "done" status of the item in the database and items props.
+     * @param id  The id of the item which should not be marked as "done".
+     */
     const handleClick = (id: number) => {
         axios.patch(`api/tasks/${id}/`, {'is_finished': false})
-            .then(async () => {
-                setAnimation('unmount')
-                await new Promise(r => setTimeout(r, 500))
-            })
-            .then(() => {
-                props.setItems(prevState => {
-                    return prevState.map(item => {
-                        if (item.id === id) {
-                            return {
-                                ...item,
-                                last_modified: new Date().toISOString(),
-                                is_finished: false
-                            }
-                        } else {
-                            return item
-                        }
-                    })
-                })
-            })
+            .then(() => waitForUnmountAnimation(setAnimation))
+            .then(() => patchItemsProps(
+                    props.setItems, id, {last_modified: getCurrentDate(), is_finished: false}
+                )
+            )
     }
 
+    /**
+     * Delete the item in the database and items props.
+     * @param id  The id of the item to be deleted.
+     */
     const handleDelete = (id: number) => {
         axios.delete(`api/tasks/${id}/`)
-            .then(async () => {
-                setAnimation('unmount')
-                await new Promise(r => setTimeout(r, 500))
-            })
+            .then(() => waitForUnmountAnimation(setAnimation))
             .then(() => {
                 props.setItems(prevState => {
                     return prevState.filter(item => item.id !== id)
@@ -51,13 +40,10 @@ function DoneItem(props: ToDoItemProps) {
             })
     }
 
-    let cardStyles
-
-    if (animation !== null) {
-        cardStyles = {
-            animationName: animation
-        }
+    const cardStyles = {
+        animationName: animation
     }
+
 
     return (
         <div className="card text-center todo-item text-white bg-dark" style={cardStyles}>
@@ -66,7 +52,12 @@ function DoneItem(props: ToDoItemProps) {
                 <FaTimes className="x-symbol" onClick={() => handleDelete(props.id)}/>
                 <span className="dot" style={{'backgroundColor': props.color}}/>
                 <p className="card-text">{props.description}</p>
-                <button onClick={() => handleClick(props.id)} className="btn btn-info">Undone</button>
+                <button
+                    onClick={() => handleClick(props.id)}
+                    className="btn btn-info material-light-shadow"
+                >
+                    Undone
+                </button>
             </div>
             <div className="card-footer text-muted row">
                 <div className="col-lg card-footer-created">created: {getDateFromNow(props.createdAt)}</div>

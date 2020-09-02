@@ -1,29 +1,24 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react"
+import React, {FormEvent, useState} from "react"
 import {CirclePicker, ColorResult} from "react-color";
 import axios from "axios"
 
-import {colorNames} from "./ToDoItem";
-import {Color, Item} from "../utils/typing";
+import {COLORS_MAPPING} from '../utils/constants'
+import {Color, ItemsFetcherChildProps as AddToDoProps} from "../utils/typing";
 
-
-interface AddToDoProps {
-    items: Item[]
-    setItems: Dispatch<SetStateAction<Item[]>>
-}
-
-
+/**
+ * The component with the card to add new tasks.
+ */
 function AddToDo(props: AddToDoProps) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [color, setColor] = useState<Color>('blue')
 
-    useEffect(() => {
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-        axios.defaults.xsrfCookieName = "csrftoken"
-    }, [])
-
-    const handleChange = (color: ColorResult) => {
-        const colorName = colorNames.get(color.hex)
+    /**
+     * Change the card color.
+     * @param color  The color the card should be changed to.
+     */
+    const handleChange = (color: ColorResult): void => {
+        const colorName = COLORS_MAPPING.get(color.hex)
         setColor(colorName)
     }
 
@@ -49,7 +44,11 @@ function AddToDo(props: AddToDoProps) {
             break
     }
 
-    const handleSubmit = (event: React.FormEvent) => {
+    /**
+     * Add the new task to the database and to items props.
+     * @param event  The event fired when the form is submitted.
+     */
+    const handleSubmit = (event: FormEvent): void => {
         axios.post('api/tasks/', {
             'name': title,
             'description': description,
@@ -106,7 +105,12 @@ function AddToDo(props: AddToDoProps) {
                             </div>
                         </form>
                     </div>
-                    <button type="submit" className="btn btn-primary rounded material-light-shadow" id="add-card-button" onClick={handleSubmit}>
+                    <button
+                        type="submit"
+                        className="btn btn-primary rounded material-light-shadow"
+                        id="add-card-button"
+                        onClick={handleSubmit}
+                    >
                         Add it!
                     </button>
                 </div>

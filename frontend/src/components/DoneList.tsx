@@ -1,18 +1,14 @@
 import React from "react"
 
 import DoneItem from "./DoneItem"
-import {Item} from '../utils/typing'
+import {ItemsFetcherChildProps as DoneListProps} from '../utils/typing'
 
-
-export interface ToDoListProps {
-    items: Item[],
-    setItems: React.Dispatch<React.SetStateAction<Item[]>>
-}
-
-
-function ToDoList(props: ToDoListProps) {
+/**
+ * The component with the list of items that have already been done.
+ */
+function DoneList(props: DoneListProps) {
     return (
-        <div id="todo-list">
+        <div id="done-list">
             {props.items.map(item => {
                 return (
                     <DoneItem
@@ -32,4 +28,4 @@ function ToDoList(props: ToDoListProps) {
     )
 }
 
-export default ToDoList
+export default DoneList

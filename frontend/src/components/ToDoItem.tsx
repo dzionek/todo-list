@@ -1,97 +1,90 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react"
+import React, {useState} from "react"
 import axios from "axios"
 import {CirclePicker, ColorResult} from "react-color"
-
-import {Item, Color} from '../utils/typing'
-import {getDateFromNow} from '../utils/date'
 import {FaTimes} from "react-icons/fa";
 
+import {ItemProps as ToDoItemProps, Animation} from '../utils/typing'
+import {getCurrentDate, getDateFromNow} from '../utils/date'
+import {COLORS_MAPPING} from '../utils/constants'
+import {waitForUnmountAnimation} from "../utils/animation";
+import {patchItemsProps} from "../utils/setters";
 
-export interface ToDoItemProps {
-    id: number,
-    name: string,
-    description: string,
-    createdAt: string,
-    lastModified: string,
-    isFinished: boolean,
-    color: Color,
-    setItems: Dispatch<SetStateAction<Item[]>>
-}
-
-type Animation = "mount" | "unmount"
-
-
-export const colorNames = new Map()
-colorNames.set("#0000ff", "blue")
-colorNames.set("#008000", "green")
-colorNames.set("#ffff00", "yellow")
-colorNames.set("#ff0000", "red")
-
+/**
+ * The component of the item that has not yet been done.
+ */
 function ToDoItem(props: ToDoItemProps) {
-    // States
 
     const [isEdited, setIsEdited] = useState(false)
 
     const [taskTitle, setTaskTitle] = useState(props.name)
     const [taskDescription, setTaskDescription] = useState(props.description)
 
-    const [animation, setAnimation] = useState<null | Animation>(null)
+    const [animation, setAnimation] = useState<Animation>("mount")
 
-    // Effects
-
-    useEffect(() => {
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-        axios.defaults.xsrfCookieName = "csrftoken"
-        setAnimation('mount')
-    }, [])
-
-    // Event handlers
-
+    /**
+     * Mark the item as "done" by saving that fact in the database
+     * and editing the items props.
+     * @param id  The id of the item to be marked as "done".
+     */
     const handleClickDone = (id: number): void => {
         axios.patch(`api/tasks/${id}/`, {'is_finished': true})
-            .then(async () => {
-                setAnimation('unmount')
-                await new Promise(r => setTimeout(r, 500))
-            })
+            .then(() => waitForUnmountAnimation(setAnimation))
+            .then(() => patchItemsProps(
+                    props.setItems, id, {
+                        last_modified: getCurrentDate(), is_finished: true
+                    }
+                )
+            )
+    }
+
+    /**
+     * Save the changes of the title or/and the description of the item of the given id
+     * in the database and in items props.
+     * @param id  The id of the item the changes applies to.
+     */
+    const saveChanges = (id: number): void => {
+        if (taskTitle !== props.name || taskDescription !== props.description) {
+            axios.patch(`api/tasks/${id}/`, {'name': taskTitle, 'description': taskDescription})
+                .then(() => {
+                    patchItemsProps(
+                        props.setItems, id, {
+                            last_modified: getCurrentDate(),
+                            name: taskTitle,
+                            description: taskDescription
+                        }
+                    )
+                })
+                .then(() => {
+                    setIsEdited(false)
+                })
+        }
+    }
+
+    /**
+     * Delete the item in the database and items props.
+     * @param id  The id of the item to be deleted.
+     */
+    const handleDelete = (id: number): void => {
+        axios.delete(`api/tasks/${id}/`)
+            .then(() => waitForUnmountAnimation(setAnimation))
             .then(() => {
                 props.setItems(prevState => {
-                    return prevState.map(item => {
-                        if (item.id === id) {
-                            return {
-                                ...item,
-                                last_modified: new Date().toISOString(),
-                                is_finished: true
-                            }
-                        } else {
-                            return item
-                        }
-                    })
+                    return prevState.filter(item => item.id !== id)
                 })
             })
     }
 
-    const saveChanges = (id: number): void => {
-        axios.patch(`api/tasks/${id}/`, {'name': taskTitle, 'description': taskDescription})
-            .then(() => {
-                props.setItems(prevState => {
-                    return prevState.map(item => {
-                        if (item.id === id) {
-                            return {
-                                ...item,
-                                last_modified: new Date().toISOString(),
-                                name: taskTitle,
-                                description: taskDescription
-                            }
-                        } else {
-                            return item
-                        }
-                    })
-                })
-            })
-            .then(() => {
-                setIsEdited(false)
-            })
+    /**
+     * Change the color of the item of the given id.
+     * @param color  The new color of the item.
+     * @param id  The id of the item which color should change.
+     */
+    const handleColorChange = (color: ColorResult, id: number): void => {
+        const colorName = COLORS_MAPPING.get(color.hex)
+        axios.patch(`api/tasks/${id}/`, {'color': colorName})
+            .then(() => patchItemsProps(props.setItems, id,{color: colorName}))
     }
+
 
     const defaultTopContent =
         <>
@@ -152,19 +145,6 @@ function ToDoItem(props: ToDoItemProps) {
             </button>
         </>
 
-    const handleDelete = (id: number): void => {
-        axios.delete(`api/tasks/${id}/`)
-            .then(async () => {
-                setAnimation('unmount')
-                await new Promise(r => setTimeout(r, 500))
-            })
-            .then(() => {
-                props.setItems(prevState => {
-                    return prevState.filter(item => item.id !== id)
-                })
-            })
-    }
-
     let cardClassName = "card text-center todo-item text-white"
     let cardFooterClassName = "card-footer"
     let colors = ["blue", "green", "yellow", "red"]
@@ -187,31 +167,8 @@ function ToDoItem(props: ToDoItemProps) {
             colors = colors.filter(color => color !== "red")
     }
 
-    const handleColorChange = (color: ColorResult, id: number) => {
-        const colorName = colorNames.get(color.hex)
-        axios.patch(`api/tasks/${id}/`, {'color': colorName})
-            .then(() => {
-                props.setItems(prevState => {
-                    return prevState.map(item => {
-                        if (item.id === id) {
-                            return {
-                                ...item,
-                                color: colorName
-                            }
-                        } else {
-                            return item
-                        }
-                    })
-                })
-            })
-    }
-
-    let cardStyles
-
-    if (animation !== null) {
-        cardStyles = {
-            animationName: animation
-        }
+    const cardStyles = {
+        animationName: animation
     }
 
     return (
