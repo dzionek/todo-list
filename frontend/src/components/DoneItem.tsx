@@ -10,7 +10,7 @@ import {patchItemsProps} from "../utils/setters";
 /**
  * The component of the item that has already been done.
  */
-function DoneItem(props: DoneItemProps) {
+function DoneItem(props: DoneItemProps): JSX.Element {
     const [animation, setAnimation] = useState<Animation>("mount")
 
     /**

@@ -7,7 +7,7 @@ import {ItemsFetcherChildProps as ToDoListProps} from '../utils/typing'
 /**
  * The component with the list of items that have not yet been done.
  */
-function ToDoList(props: ToDoListProps) {
+function ToDoList(props: ToDoListProps): JSX.Element {
     return (
         <div id="todo-list">
             {props.items.map(item => {

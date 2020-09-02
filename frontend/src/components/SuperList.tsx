@@ -7,7 +7,7 @@ import {Item, ItemsFetcherChildProps as SuperListProps} from "../utils/typing";
 /**
  * The component containing the two lists - current items and done items.
  */
-function SuperList(props: SuperListProps) {
+function SuperList(props: SuperListProps): JSX.Element {
     /**
      * Sort the given items by the date of the last modification.
      * The file edited lately has precedence over the one edited before.

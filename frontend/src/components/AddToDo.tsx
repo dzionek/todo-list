@@ -8,7 +8,7 @@ import {Color, ItemsFetcherChildProps as AddToDoProps} from "../utils/typing";
 /**
  * The component with the card to add new tasks.
  */
-function AddToDo(props: AddToDoProps) {
+function AddToDo(props: AddToDoProps): JSX.Element {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [color, setColor] = useState<Color>('blue')

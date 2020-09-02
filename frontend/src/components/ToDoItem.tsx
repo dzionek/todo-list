@@ -12,7 +12,7 @@ import {patchItemsProps} from "../utils/setters";
 /**
  * The component of the item that has not yet been done.
  */
-function ToDoItem(props: ToDoItemProps) {
+function ToDoItem(props: ToDoItemProps): JSX.Element {
 
     const [isEdited, setIsEdited] = useState(false)
 
@@ -146,7 +146,6 @@ function ToDoItem(props: ToDoItemProps) {
         </>
 
     let cardClassName = "card text-center todo-item text-white"
-    let cardFooterClassName = "card-footer"
     let colors = ["blue", "green", "yellow", "red"]
 
     switch (props.color) {
@@ -186,7 +185,7 @@ function ToDoItem(props: ToDoItemProps) {
 
                 {isEdited? editBottomContent : defaultBottomContent}
             </div>
-            <div className={cardFooterClassName}>
+            <div className="card-footer">
                 created: {getDateFromNow(props.createdAt)}
             </div>
         </div>

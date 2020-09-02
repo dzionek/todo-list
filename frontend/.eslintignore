@@ -1,0 +1,6 @@
+migrations
+node_modules
+sass
+static
+webpack.config.js
+.eslintrc.js

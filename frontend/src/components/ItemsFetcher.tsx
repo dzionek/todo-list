@@ -9,7 +9,7 @@ import SuperList from "./SuperList";
  * The component responsible for fetching items from API
  * passing them to sub-components.
  */
-function ItemsFetcher() {
+function ItemsFetcher(): JSX.Element {
     const [items, setItems] = useState<Item[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [hasFailed, setHasFailed] = useState(false)

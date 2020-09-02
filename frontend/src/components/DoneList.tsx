@@ -6,7 +6,7 @@ import {ItemsFetcherChildProps as DoneListProps} from '../utils/typing'
 /**
  * The component with the list of items that have already been done.
  */
-function DoneList(props: DoneListProps) {
+function DoneList(props: DoneListProps): JSX.Element {
     return (
         <div id="done-list">
             {props.items.map(item => {
