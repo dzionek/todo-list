@@ -1,13 +1,14 @@
 import React, {useState} from "react"
 import axios from "axios"
 import {CirclePicker, ColorResult} from "react-color"
-import {FaTimes} from "react-icons/fa";
+import {FaTimes, FaEdit, FaRegCalendarCheck, FaSave} from "react-icons/fa"
+import {RiArrowGoBackFill} from "react-icons/ri"
 
 import {ItemProps as ToDoItemProps, Animation} from '../utils/typing'
 import {getCurrentDate, getDateFromNow} from '../utils/date'
 import {COLORS_MAPPING} from '../utils/constants'
-import {waitForUnmountAnimation} from "../utils/animation";
-import {patchItemsProps} from "../utils/setters";
+import {waitForUnmountAnimation} from "../utils/animation"
+import {patchItemsProps} from "../utils/setters"
 
 /**
  * The component of the item that has not yet been done.
@@ -98,13 +99,13 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
                 onClick={() => setIsEdited(true)}
                 className="btn btn-light mr-2 material-light-shadow"
             >
-                Edit
+                <FaEdit/> Edit
             </button>
             <button
                 onClick={() => handleClickDone(props.id)}
                 className="btn btn-primary ml-2 material-light-shadow"
             >
-                Done
+                <FaRegCalendarCheck/> Done
             </button>
         </>
 
@@ -135,13 +136,13 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
                     setTaskDescription(props.description)
                 }}
             >
-                Go back
+                <RiArrowGoBackFill/> Go back
             </button>
             <button
                 className="btn btn-primary ml-2"
                 onClick={() => saveChanges(props.id)}
             >
-                Save changes
+                <FaSave/> Save
             </button>
         </>
 

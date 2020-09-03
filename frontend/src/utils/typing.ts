@@ -8,6 +8,9 @@ import {Dispatch, SetStateAction} from "react";
 /** The color of an item. */
 export type Color = "blue" | "green" | "yellow" | "red"
 
+/** The filter informing what items should be displayed. */
+export type ItemsFilterType = "all" | Color
+
 /** The type of animation of an item. */
 export type Animation = "mount" | "unmount"
 

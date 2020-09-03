@@ -1,6 +1,7 @@
 import React, {FormEvent, useState} from "react"
 import {CirclePicker, ColorResult} from "react-color";
 import axios from "axios"
+import {BiMessageAdd} from "react-icons/bi"
 
 import {COLORS_MAPPING} from '../utils/constants'
 import {Color, ItemsFetcherChildProps as AddToDoProps} from "../utils/typing";
@@ -111,7 +112,7 @@ function AddToDo(props: AddToDoProps): JSX.Element {
                         id="add-card-button"
                         onClick={handleSubmit}
                     >
-                        Add it!
+                        <BiMessageAdd/> Add it
                     </button>
                 </div>
             </div>

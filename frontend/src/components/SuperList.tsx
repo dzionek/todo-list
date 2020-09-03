@@ -1,13 +1,17 @@
-import React from "react"
+import React, {useState} from "react"
 
 import ToDoList from './ToDoList'
 import DoneList from './DoneList'
-import {Item, ItemsFetcherChildProps as SuperListProps} from "../utils/typing";
+import ItemsFilter from "./ItemsFilter";
+import {Item, ItemsFetcherChildProps as SuperListProps, ItemsFilterType} from "../utils/typing";
 
 /**
  * The component containing the two lists - current items and done items.
  */
 function SuperList(props: SuperListProps): JSX.Element {
+    const [currentItemsFilter, setCurrentItemsFilter] = useState<ItemsFilterType>("all")
+    const [doneItemsFilter, setDoneItemsFilter] = useState<ItemsFilterType>("all")
+
     /**
      * Sort the given items by the date of the last modification.
      * The file edited lately has precedence over the one edited before.
@@ -22,17 +26,29 @@ function SuperList(props: SuperListProps): JSX.Element {
     }
 
     /**
-     * Get the array of items that have not yet been done.
+     * Get the array of items that have not yet been done filtered by their color.
      */
     const getCurrentItems = (): Item[] => {
-        return sortByLastModified(props.items.filter(item => !item.is_finished))
+        let currentItems = props.items.filter(item => !item.is_finished)
+
+        if (currentItemsFilter !== "all") {
+            currentItems = currentItems.filter(item => item.color === currentItemsFilter)
+        }
+
+        return sortByLastModified(currentItems)
     }
 
     /**
-     * Get the array of items that have already been done.
+     * Get the array of items that have already been done filtered by their color.
      */
     const getDoneItems = (): Item[] => {
-        return sortByLastModified(props.items.filter(item => item.is_finished))
+        let doneItems = props.items.filter(item => item.is_finished)
+
+        if (doneItemsFilter !== "all") {
+            doneItems = doneItems.filter(item => item.color === doneItemsFilter)
+        }
+
+        return sortByLastModified(doneItems)
     }
 
     return (
@@ -41,6 +57,9 @@ function SuperList(props: SuperListProps): JSX.Element {
                 <div className="tasks-title rounded-pill">
                     <h5>Current tasks</h5>
                 </div>
+                <ItemsFilter
+                    setItemsFilter={setCurrentItemsFilter}
+                />
                 <ToDoList
                     items={getCurrentItems()}
                     setItems={props.setItems}
@@ -50,6 +69,9 @@ function SuperList(props: SuperListProps): JSX.Element {
                 <div className="tasks-title rounded-pill">
                     <h5>Done tasks</h5>
                 </div>
+                <ItemsFilter
+                    setItemsFilter={setDoneItemsFilter}
+                />
                 <DoneList
                     items={getDoneItems()}
                     setItems={props.setItems}

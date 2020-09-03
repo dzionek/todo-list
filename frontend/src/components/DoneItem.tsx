@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import axios from "axios"
-import {FaTimes} from "react-icons/fa"
+import {FaTimes, FaUndo} from "react-icons/fa"
 
 import {getDateFromNow, getCurrentDate} from '../utils/date'
 import {ItemProps as DoneItemProps, Animation} from "../utils/typing";
@@ -56,7 +56,7 @@ function DoneItem(props: DoneItemProps): JSX.Element {
                     onClick={() => handleClick(props.id)}
                     className="btn btn-info material-light-shadow"
                 >
-                    Undone
+                    <FaUndo/> Undone
                 </button>
             </div>
             <div className="card-footer text-muted row">

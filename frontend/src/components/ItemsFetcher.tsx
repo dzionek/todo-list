@@ -33,7 +33,11 @@ function ItemsFetcher(): JSX.Element {
     if (hasFailed) {
         return <div>ERROR</div>
     } else if (isLoading) {
-        return <div>Loading...</div>
+        return <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
     } else {
         return (
             <>
