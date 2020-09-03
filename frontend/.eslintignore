@@ -4,3 +4,4 @@ sass
 static
 webpack.config.js
 .eslintrc.js
+jest.config.js

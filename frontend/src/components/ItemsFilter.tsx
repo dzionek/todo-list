@@ -8,7 +8,9 @@ interface ItemsFilterProps {
     setItemsFilter:  Dispatch<SetStateAction<ItemsFilterType>>
 }
 
-
+/**
+ * The component to filter items by their color.
+ */
 function ItemsFilter(props: ItemsFilterProps): JSX.Element {
     const [isFiltering, setIsFiltering] = useState(false)
 
