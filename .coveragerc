@@ -1,0 +1,12 @@
+[run]
+omit =
+    venv/*,
+    frontend/*,
+    manage.py,
+    */migrations/*,
+    todo_list/asgi.py,
+    todo_list/wsgi.py,
+    */__init__.py,
+    tests/*,
+    */tests.py,
+    conftest.py
