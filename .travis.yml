@@ -27,6 +27,7 @@ jobs:
 
       script:
         - pytest --ignore=frontend --cov-report=xml --cov-config=.coveragerc --cov=.
+        - mypy .
 
       after_success:
         - codecov

@@ -21,6 +21,6 @@ class Task(models.Model):
         default=Color.BLUE,
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         finished_message = 'finished' if self.is_finished else 'unfinished'
         return f'Task {self.id} created by {self.user.username} ({finished_message})'

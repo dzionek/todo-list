@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/dzionek/todo-list.svg?branch=master)](https://travis-ci.org/dzionek/todo-list)
 [![codecov](https://codecov.io/gh/dzionek/todo-list/branch/master/graph/badge.svg)](https://codecov.io/gh/dzionek/todo-list)
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dzionek/todo-list.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dzionek/todo-list/context:javascript)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/dzionek/todo-list.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dzionek/todo-list/context:python)
 # todo-list
