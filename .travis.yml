@@ -9,8 +9,8 @@ jobs:
       before_script: npm install --save-dev codecov
 
       script:
-        - npm run eslint
         - npm run test
+        - npm run eslint
 
       after_success: ./node_modules/.bin/codecov
 
@@ -28,6 +28,7 @@ jobs:
       script:
         - pytest --ignore=frontend --cov-report=xml --cov-config=.coveragerc --cov=.
         - mypy .
+        - flake8
 
       after_success:
         - codecov
