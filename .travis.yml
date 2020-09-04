@@ -1,11 +1,13 @@
 language: node_js
-node_js:
-  - 14
+node_js: 14
 
-before_install:
-  - cd frontend
-install:
-  - npm i
+before_install: cd frontend
+install: npm i
+
+before_script: npm install --save-dev codecov
 
 script:
   - npm run eslint
+  - npm run test
+
+after_success: ./node_modules/.bin/codecov
