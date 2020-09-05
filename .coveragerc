@@ -1,6 +1,7 @@
 [run]
 omit =
     venv/*,
+    venv2/*,
     frontend/*,
     manage.py,
     */migrations/*,
