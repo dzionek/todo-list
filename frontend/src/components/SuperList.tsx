@@ -58,6 +58,7 @@ function SuperList(props: SuperListProps): JSX.Element {
                     <h5>Current tasks</h5>
                 </div>
                 <ItemsFilter
+                    id="todo-filter"
                     setItemsFilter={setCurrentItemsFilter}
                 />
                 <ToDoList
@@ -70,6 +71,7 @@ function SuperList(props: SuperListProps): JSX.Element {
                     <h5>Done tasks</h5>
                 </div>
                 <ItemsFilter
+                    id="done-filter"
                     setItemsFilter={setDoneItemsFilter}
                 />
                 <DoneList

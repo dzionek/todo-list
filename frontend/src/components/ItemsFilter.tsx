@@ -5,7 +5,8 @@ import {ItemsFilterType} from "../utils/typing";
 
 
 interface ItemsFilterProps {
-    setItemsFilter:  Dispatch<SetStateAction<ItemsFilterType>>
+    setItemsFilter:  Dispatch<SetStateAction<ItemsFilterType>>,
+    id: string
 }
 
 /**
@@ -15,7 +16,7 @@ function ItemsFilter(props: ItemsFilterProps): JSX.Element {
     const [isFiltering, setIsFiltering] = useState(false)
 
     return (
-        <div className="items-filter">
+        <div className="items-filter" id={props.id}>
             {isFiltering ?
                 <>
                     <span
