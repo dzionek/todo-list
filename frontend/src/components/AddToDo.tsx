@@ -71,12 +71,15 @@ function AddToDo(props: AddToDoProps): JSX.Element {
             <div className="col-lg-2"/>
             <div className="col-lg-8">
                 <div className={cardClassName} id="add-card">
-                    <div className="card-header text-white text-center py-2"><h5>Add a new task</h5></div>
+                    <div className="card-header text-white text-center py-2">
+                        <h5>Add a new task</h5>
+                    </div>
                     <div className="card-body">
                         <form className="form-row">
                             <div className="col-lg">
                                 <div className="form-group">
                                     <input
+                                        id="add-task-title"
                                         type="text"
                                         className="form-control"
                                         placeholder="Title of your task"
@@ -96,7 +99,7 @@ function AddToDo(props: AddToDoProps): JSX.Element {
                             <div className="col-lg">
                                 <textarea
                                     className="form-control"
-                                    id="taskDescription"
+                                    id="add-task-description"
                                     placeholder="Description of your task"
                                     rows={3}
                                     style={{"resize": "none"}}
