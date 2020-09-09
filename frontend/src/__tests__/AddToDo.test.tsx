@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import axios from "axios"
 
 import ItemsFetcher from "../components/ItemsFetcher"
-import {ITEMS, NEW_ITEM} from "../utils/tests_consts"
+import {ITEMS, NEW_ITEM} from "../utils/tests-consts"
 
 
 describe("<AddToDo/>",() => {

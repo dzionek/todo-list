@@ -4,7 +4,8 @@ import userEvent from '@testing-library/user-event'
 
 import ItemsFetcher from "../components/ItemsFetcher"
 import axios from "axios";
-import {ITEMS} from "../utils/tests_consts";
+import {ITEMS} from "../utils/tests-consts";
+import {getTitlesInner} from "../utils/tests-utils"
 
 
 describe("<SuperList/>", () => {
@@ -18,16 +19,14 @@ describe("<SuperList/>", () => {
         await waitForElementToBeRemoved(() => queryByText("Loading..."), {timeout: 5000})
 
         const todoList = container.querySelector('#todo-list')
-        let titles = todoList.querySelectorAll('h5')
-        expect(Array.from(titles).map(title => title.innerHTML))
+        expect(getTitlesInner(todoList))
             .toStrictEqual(["Marathon", "Name 5", "Name 3"])
 
         const filterDiv = container.querySelector("#todo-filter")
         userEvent.click(filterDiv.querySelector("span"))
         userEvent.click(getByText("green"))
 
-        titles = todoList.querySelectorAll('h5')
-        expect(Array.from(titles).map(title => title.innerHTML))
+        expect(Array.from(getTitlesInner(todoList)))
             .toStrictEqual(["Name 5", "Name 3"])
     })
 
@@ -36,16 +35,14 @@ describe("<SuperList/>", () => {
         await waitForElementToBeRemoved(() => queryByText("Loading..."), {timeout: 5000})
 
         const todoList = container.querySelector('#done-list')
-        let titles = todoList.querySelectorAll('h5')
-        expect(Array.from(titles).map(title => title.innerHTML))
+        expect(getTitlesInner(todoList))
             .toStrictEqual(["Coursework", "Name 6", "Name 4"])
 
         const filterDiv = container.querySelector("#done-filter")
         userEvent.click(filterDiv.querySelector("span"))
         userEvent.click(getByText("blue"))
 
-        titles = todoList.querySelectorAll('h5')
-        expect(Array.from(titles).map(title => title.innerHTML))
+        expect(getTitlesInner(todoList))
             .toStrictEqual(["Coursework", "Name 4"])
     })
 })
