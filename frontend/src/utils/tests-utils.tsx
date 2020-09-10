@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import React from "react"
 import axios from "axios"
 import {render, waitForElementToBeRemoved} from "@testing-library/react"

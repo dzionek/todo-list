@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 /** Some constants used in multiple places by the tests. */
 
 import {Item} from "../utils/typing"
