@@ -58,6 +58,8 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
                 .then(() => {
                     setIsEdited(false)
                 })
+        } else {
+            setIsEdited(false)
         }
     }
 
@@ -146,7 +148,7 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
             </button>
         </>
 
-    let cardClassName = "card text-center todo-item text-white"
+    let cardClassName = "item todo-item card text-center text-white"
     let colors = ["blue", "green", "yellow", "red"]
 
     switch (props.color) {

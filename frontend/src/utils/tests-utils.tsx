@@ -25,7 +25,7 @@ export function getTitlesInner(tasksList: Element): string[] {
  * @param card  card which color should be checked
  * @param cardCategory  information whether the task is done or not.
  */
-function getCardColor(card: Element, cardCategory: CardCategory): Color {
+export function getCardColor(card: Element, cardCategory: CardCategory): Color {
     let color: Color
 
     if (cardCategory === "current") {

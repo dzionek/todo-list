@@ -58,7 +58,7 @@ body {
   width: auto !important;
 }
 
-.todo-item {
+.item {
   @extend .material-light-shadow;
 
   margin-bottom: 2%;
@@ -89,7 +89,7 @@ body {
   right: 5%;
 }
 
-.todo-item:hover {
+.item:hover {
   box-shadow: 0 7px 14px rgba(0,0,0,0.20), 0 5px 5px rgba(0,0,0,0.22);
   transform: scale(1.02);
   margin-bottom: 3%;

@@ -46,7 +46,7 @@ function DoneItem(props: DoneItemProps): JSX.Element {
 
 
     return (
-        <div className="card text-center todo-item text-white bg-dark" style={cardStyles}>
+        <div className="item done-item card text-center text-white bg-dark" style={cardStyles}>
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <FaTimes className="x-symbol" onClick={() => handleDelete(props.id)}/>
