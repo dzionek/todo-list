@@ -87,7 +87,10 @@ describe("<ToDoItem/>", () => {
             await userEvent.click(getByText(card as HTMLElement, "Done"))
             expect(card.style.animationName).toBe("unmount")
             await new Promise(r => setTimeout(r, 2 * ANIMATION_UNMOUNT_DURATION))
-            expect(queryByText(title).parentElement.parentElement.classList).toContain("done-item")
+
+            const doneCard = queryByText(title).parentElement.parentElement
+            expect(doneCard.classList).toContain("done-item")
+            getByText(doneCard, "done: a few seconds ago")
         })
     })
 
