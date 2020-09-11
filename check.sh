@@ -13,7 +13,7 @@ flake8
 echo
 
 echo "3) ES-Lint"
-cd frontend
+cd frontend || exit
 npm run eslint
 echo
 
@@ -32,5 +32,5 @@ then
   echo "5) Pytest"
   echo
   cd ..
-  pytest --ignore=frontend --cov-config=.coveragerc --cov=.
+  pytest --ignore=frontend --cov-config=.coveragerc --cov=. -n auto
 fi

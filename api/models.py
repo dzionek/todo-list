@@ -25,4 +25,4 @@ class Task(models.Model):
     def __str__(self) -> str:
         finished_message = 'finished' if self.is_finished else 'unfinished'
         return f'Task {self.id} created by {self.user.username}' \
-               f'({finished_message})'
+               f' ({finished_message})'
