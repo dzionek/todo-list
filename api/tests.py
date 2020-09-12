@@ -8,19 +8,6 @@ from django.core.exceptions import ValidationError
 from .models import Task
 
 
-@pytest.fixture
-def default_user() -> User:
-    return User.objects.create_user(
-        username='testUser', email='test@gmail.com',
-        password='testPassword'
-    )
-
-
-@pytest.fixture
-def client() -> Client:
-    return Client()
-
-
 def add_tasks(user: User) -> None:
     Task.objects.create(
         name='Name 1', description='Description 1',
@@ -60,7 +47,7 @@ def add_tasks(user: User) -> None:
 
 @pytest.mark.django_db
 class TestViews:
-    def test_not_logged_in(self, client: Client) -> None:
+    def test_task_not_logged_in(self, client: Client) -> None:
         response_list = client.get('/api/tasks/')
         assert response_list.status_code == 403
 
@@ -76,7 +63,7 @@ class TestViews:
         response_destroy = client.delete('/api/tasks/1/')
         assert response_destroy.status_code == 403
 
-    def test_list(self, client: Client, default_user: User) -> None:
+    def test_task_list(self, client: Client, default_user: User) -> None:
         add_tasks(default_user)
         client.force_login(default_user)
 
@@ -89,7 +76,7 @@ class TestViews:
             assert task['name'] == f'Name {i + 1}'
             assert task['description'] == f'Description {i + 1}'
 
-    def test_retrieve(self, client: Client, default_user: User) -> None:
+    def test_task_retrieve(self, client: Client, default_user: User) -> None:
         add_tasks(default_user)
         client.force_login(default_user)
 
@@ -107,7 +94,7 @@ class TestViews:
 
         assert client.get('/api/tasks/6/').status_code == 404
 
-    def test_create(self, client: Client, default_user: User) -> None:
+    def test_task_create(self, client: Client, default_user: User) -> None:
         add_tasks(default_user)
         client.force_login(default_user)
 
@@ -121,7 +108,7 @@ class TestViews:
         assert Task.objects.filter(user=default_user).count() == 6
         assert client.get('/api/tasks/8/').content == response.content
 
-    def test_update(self, client: Client, default_user: User) -> None:
+    def test_task_update(self, client: Client, default_user: User) -> None:
         add_tasks(default_user)
         client.force_login(default_user)
 
@@ -134,7 +121,7 @@ class TestViews:
         assert task.name == 'Name EDITED'
         assert task.description == 'Description 1'
 
-    def test_destroy(self, client: Client, default_user: User) -> None:
+    def test_task_destroy(self, client: Client, default_user: User) -> None:
         add_tasks(default_user)
         client.force_login(default_user)
 
@@ -145,17 +132,30 @@ class TestViews:
 
         assert 'Name 1' not in map(lambda task: task.name, user_tasks)
 
+    def test_user_retrieve(self, client: Client, default_user: User) -> None:
+        response = client.get('/api/user/')
+        assert response.status_code == 403
+
+        add_tasks(default_user)
+        client.force_login(default_user)
+
+        response = client.get('/api/user/')
+        assert response.status_code == 200
+
+        response_json = json.loads(response.content)
+        assert response_json['username'] == 'testUser'
+
 
 @pytest.mark.django_db
 class TestModels:
-    def test_str(self, default_user: User) -> None:
+    def test_task_str(self, default_user: User) -> None:
         task: Task = Task.objects.create(
             name='Test name', description='Test description',
             user=default_user
         )
         assert str(task) == 'Task 1 created by testUser (unfinished)'
 
-    def test_color(self, default_user: User) -> None:
+    def test_task_color(self, default_user: User) -> None:
         task_valid = Task(
             name='Test name', description='Test description',
             user=default_user, color='red'

@@ -14,9 +14,10 @@ describe("<ItemsFetcher/>", () => {
     })
 
     it("doesn't allow logged off user to fetch the data", async () => {
-        const {queryByText, getByText} = render(<ItemsFetcher/>)
+        const {queryByText, container} = render(<ItemsFetcher/>)
+        expect(container).not.toBeEmptyDOMElement()
         await waitForElementToBeRemoved(() => queryByText("Loading..."), {timeout: 5000})
-        getByText("ERROR")
+        expect(container).toBeEmptyDOMElement()
     })
 
     it("receives the data from valid API call", async () => {

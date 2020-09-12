@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react"
-import axios from "axios";
+import axios from "axios"
 
-import {Item} from "../utils/typing";
-import AddToDo from "./AddToDo";
-import SuperList from "./SuperList";
+import {Item} from "../utils/typing"
+import AddToDo from "./AddToDo"
+import SuperList from "./SuperList"
+import Account from "./Account"
 
 /**
  * The component responsible for fetching items from API
@@ -31,7 +32,8 @@ function ItemsFetcher(): JSX.Element {
     }, [])
 
     if (hasFailed) {
-        return <div>ERROR</div>
+        window.location.href = axios.defaults.baseURL
+        return null
     } else if (isLoading) {
         return <div className="d-flex justify-content-center">
                     <div className="spinner-border" role="status">
@@ -41,10 +43,18 @@ function ItemsFetcher(): JSX.Element {
     } else {
         return (
             <>
-                <AddToDo
-                    items={items}
-                    setItems={setItems}
-                />
+                <div className="row mt-4 mb-4">
+                    <div className="col-lg-2">
+                        <Account/>
+                    </div>
+                    <div className="col-lg-8">
+                        <AddToDo
+                            items={items}
+                            setItems={setItems}
+                        />
+                    </div>
+                    <div className="col-lg-2"/>
+                </div>
                 <SuperList
                     items={items}
                     setItems={setItems}

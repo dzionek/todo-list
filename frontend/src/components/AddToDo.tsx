@@ -67,59 +67,53 @@ function AddToDo(props: AddToDoProps): JSX.Element {
     }
 
     return (
-        <div className="row mt-4 mb-4">
-            <div className="col-lg-2"/>
-            <div className="col-lg-8">
-                <div className={cardClassName} id="add-card">
-                    <div className="card-header text-white text-center py-2">
-                        <h5>Add a new task</h5>
-                    </div>
-                    <div className="card-body">
-                        <form className="form-row">
-                            <div className="col-lg">
-                                <div className="form-group">
-                                    <input
-                                        id="add-task-title"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Title of your task"
-                                        value={title}
-                                        onChange={(event) => setTitle(event.target.value)}
-                                    />
-                                </div>
-                                <div id="add-card-colors">
-                                    <span>Color:</span>
-                                    <CirclePicker
-                                        colors={colors}
-                                        className="color-picker-add"
-                                        onChange={(color) => handleChange(color)}
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-lg">
-                                <textarea
-                                    className="form-control"
-                                    id="add-task-description"
-                                    placeholder="Description of your task"
-                                    rows={3}
-                                    style={{"resize": "none"}}
-                                    value={description}
-                                    onChange={(event) => setDescription(event.target.value)}
-                                />
-                            </div>
-                        </form>
-                    </div>
-                    <button
-                        type="submit"
-                        className="btn btn-primary rounded material-light-shadow"
-                        id="add-card-button"
-                        onClick={handleSubmit}
-                    >
-                        <BiMessageAdd/> Add it
-                    </button>
-                </div>
+        <div className={cardClassName} id="add-card">
+            <div className="card-header text-white text-center py-2">
+                <h5>Add a new task</h5>
             </div>
-            <div className="col-lg-2"/>
+            <div className="card-body">
+                <form className="form-row">
+                    <div className="col-lg">
+                        <div className="form-group">
+                            <input
+                                id="add-task-title"
+                                type="text"
+                                className="form-control"
+                                placeholder="Title of your task"
+                                value={title}
+                                onChange={(event) => setTitle(event.target.value)}
+                            />
+                        </div>
+                        <div id="add-card-colors">
+                            <span>Color:</span>
+                            <CirclePicker
+                                colors={colors}
+                                className="color-picker-add"
+                                onChange={(color) => handleChange(color)}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg">
+                        <textarea
+                            className="form-control"
+                            id="add-task-description"
+                            placeholder="Description of your task"
+                            rows={3}
+                            style={{"resize": "none"}}
+                            value={description}
+                            onChange={(event) => setDescription(event.target.value)}
+                        />
+                    </div>
+                </form>
+            </div>
+            <button
+                type="submit"
+                className="btn btn-primary rounded material-light-shadow"
+                id="add-card-button"
+                onClick={handleSubmit}
+            >
+                <BiMessageAdd/> Add it
+            </button>
         </div>
     )
 }
