@@ -1,36 +1,106 @@
 #!/bin/bash
 
-echo
-echo "*** --- Linters --- ***"
-echo
+# Linters
 
-echo "1) Mypy"
-mypy .
-echo
-
-echo "2) Flake8"
-flake8
-echo
-
-echo "3) ES-Lint"
-cd frontend || exit
-npm run eslint
-echo
-
-read -p "Do you want to run unit tests [y/n]? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
+function checkMypy() {
+  echo "-> Mypy"
+  mypy .
   echo
-  echo "*** --- Tests --- ***"
-  echo
+}
 
-  echo "4) Jest"
-  npm run test
+function checkFlake8() {
+  echo "-> Flake8"
+  flake8
   echo
+}
 
-  echo "5) Pytest"
-  echo
+function checkEsLint() {
+  echo "-> ES-Lint"
+  cd frontend || exit
+  npm run eslint
   cd ..
+  echo
+}
+
+function checkLinters() {
+  echo
+  echo "*** --- Linters --- ***"
+  echo
+
+  checkMypy
+  checkFlake8
+  checkEsLint
+}
+
+# Unit/Integration tests
+
+function testJest() {
+  echo "-> Jest"
+  cd frontend || exit
+  npm run test
+  cd ..
+  echo
+}
+
+function testPytest() {
+  echo "-> Pytest"
+  echo
   pytest --ignore=frontend --cov-config=.coveragerc --cov=. -n auto
-fi
+}
+
+function testUnitIntegration() {
+  echo
+  echo "*** --- Unit/Integration Tests --- ***"
+  echo
+
+  testJest
+  testPytest
+}
+
+function all() {
+    checkLinters
+    testUnitIntegration
+}
+
+# Command line arg parser
+
+case $1 in
+
+  mypy)
+    checkMypy
+    ;;
+
+  flake8)
+    checkFlake8
+    ;;
+
+  eslint)
+    checkEsLint
+    ;;
+
+  linters)
+    checkLinters
+    ;;
+
+  jest)
+    testJest
+    ;;
+
+  pytest)
+    testPytest
+    ;;
+
+  unit)
+    testUnitIntegration
+    ;;
+
+  all)
+    all
+    ;;
+
+  *)
+    echo
+    echo "Incorrect arg: $1."
+    echo
+    ;;
+esac
