@@ -99,13 +99,13 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
         <>
             <button
                 onClick={() => setIsEdited(true)}
-                className="btn btn-light mr-2 material-light-shadow"
+                className="btn-edit btn btn-light mr-2 material-light-shadow"
             >
                 <FaEdit/> Edit
             </button>
             <button
                 onClick={() => handleClickDone(props.id)}
-                className="btn btn-primary ml-2 material-light-shadow"
+                className="btn-done btn btn-primary ml-2 material-light-shadow"
             >
                 <FaRegCalendarCheck/> Done
             </button>
@@ -116,12 +116,14 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
             <input
                 type="text"
                 placeholder="Title of your task"
+                name="taskTitle"
                 value={taskTitle}
                 onChange={(event) => setTaskTitle(event.target.value)}
                 className="top-content-input"
             />
             <textarea
                 placeholder="Description of your task"
+                name="taskDescription"
                 value={taskDescription}
                 onChange={(event) => setTaskDescription(event.target.value)}
                 className="bottom-content-input"
@@ -131,7 +133,7 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
     const editBottomContent =
         <>
             <button
-                className="btn btn-secondary mr-2"
+                className="btn-back btn btn-secondary mr-2"
                 onClick={() => {
                     setIsEdited(false)
                     setTaskTitle(props.name)
@@ -141,7 +143,7 @@ function ToDoItem(props: ToDoItemProps): JSX.Element {
                 <RiArrowGoBackFill/> Go back
             </button>
             <button
-                className="btn btn-primary ml-2"
+                className="btn-save btn btn-primary ml-2"
                 onClick={() => saveChanges(props.id)}
             >
                 <FaSave/> Save

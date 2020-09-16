@@ -45,7 +45,7 @@ function testJest() {
 function testPytest() {
   echo "-> Pytest"
   echo
-  pytest --ignore=frontend --cov-config=.coveragerc --cov=. -n auto
+  pytest --ignore=frontend --ignore=e2e --cov-config=.coveragerc --cov=. -n auto
 }
 
 function testUnitIntegration() {
@@ -57,9 +57,21 @@ function testUnitIntegration() {
   testPytest
 }
 
+# End to End tests
+
+function testEndToEnd() {
+  echo
+  echo "*** --- End-to-End Tests --- ***"
+  echo
+  pytest e2e -n auto
+}
+
+# All tests/checking
+
 function all() {
     checkLinters
     testUnitIntegration
+    testEndToEnd
 }
 
 # Command line arg parser
@@ -92,6 +104,10 @@ case $1 in
 
   unit)
     testUnitIntegration
+    ;;
+
+  e2e)
+    testEndToEnd
     ;;
 
   all)

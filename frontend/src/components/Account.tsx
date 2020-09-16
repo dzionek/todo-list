@@ -19,7 +19,7 @@ function Account(): JSX.Element {
     return (
         <div className="card light-background material-light-shadow rounded">
             <div className="card-body text-center">
-                <p className="card-text"><small>You are logged in as <b>{username}</b>.</small></p>
+                <p className="card-text"><small>You are logged in as <b id="username">{username}</b>.</small></p>
                 <a href={`${axios.defaults.baseURL}/logout`} className="btn btn-outline-primary btn-sm">Log out</a>
             </div>
         </div>

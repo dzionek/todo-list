@@ -15,6 +15,6 @@ describe("<Account/>", () => {
         const {getByText, findByText} = render(<Account/>)
         await findByText("testUser")
         expect(getByText("testUser").parentElement.innerHTML)
-            .toBe("You are logged in as <b>testUser</b>.")
+            .toBe('You are logged in as <b id="username">testUser</b>.')
     })
 })

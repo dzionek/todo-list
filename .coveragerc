@@ -10,4 +10,5 @@ omit =
     */__init__.py,
     tests/*,
     */tests.py,
-    conftest.py
+    conftest.py,
+    e2e/*

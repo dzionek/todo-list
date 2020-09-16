@@ -54,7 +54,7 @@ function DoneItem(props: DoneItemProps): JSX.Element {
                 <p className="card-text">{props.description}</p>
                 <button
                     onClick={() => handleClick(props.id)}
-                    className="btn btn-info material-light-shadow"
+                    className="btn-undone btn btn-info material-light-shadow"
                 >
                     <FaUndo/> Undone
                 </button>
