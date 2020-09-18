@@ -85,7 +85,7 @@ class TestPolls(StaticLiveServerTestCase):
             options.add_argument("--no-sandbox")
             options.add_argument('--disable-dev-shm-usage')
             self.driver = webdriver.Chrome(
-                'e2e/local_webdriver/chrome_linux', options=options
+                '/usr/bin/chromedriver', options=options
             )
 
     def tearDown(self) -> None:
