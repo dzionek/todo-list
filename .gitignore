@@ -2,26 +2,31 @@
 .idea/
 
 # Python Virtual Environment
-venv/
-venv2/
+web/venv/
 
 # Django migrations
-*/migrations/*
-!*/migrations/__init__.py
+/web/api/migrations/*
+!/web/api/migrations/__init__.py
 
 # SQL Lite Database
-db.sqlite3
+web/db.sqlite3
 
 # NPM packages
-frontend/node_modules/
+web/frontend/node_modules/
 
 # Dist
-frontend/static/
+web/frontend/static/
 
 # coverage
-frontend/coverage/
+web/frontend/coverage/
 
 # cache
-.pytest_cache/
-.coverage
-.mypy_cache/
+web/.pytest_cache/
+web/.coverage
+web/.mypy_cache/
+web/__pycache__/
+web/account/__pycache__/
+web/api/__pycache__/
+web/todo_list/__pycache__/
+web/api/migrations/__pycache__/
+web/frontend/__pycache__/
