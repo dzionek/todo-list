@@ -27,5 +27,6 @@ web/.mypy_cache/
 web/__pycache__/
 web/account/__pycache__/
 web/api/__pycache__/
+web/todo_list/__pycache__/
 web/api/migrations/__pycache__/
 web/frontend/__pycache__/
