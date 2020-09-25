@@ -7,6 +7,7 @@ omit =
     */migrations/*,
     todo_list/asgi.py,
     todo_list/wsgi.py,
+    todo_list/settings.py,
     */__init__.py,
     tests/*,
     */tests.py,
