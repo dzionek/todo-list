@@ -13,13 +13,14 @@ before_script:
 
 script:
   - docker-compose up -d
-  - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "pytest --ignore=frontend --ignore=e2e --cov-report=xml --cov-config=.coveragerc --cov=. -n auto"
+  - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "pytest --ignore=frontend --ignore=e2e --cov-report=xml --cov-config=.coveragerc --cov=."
   - docker cp $(docker ps -aqf "name=todo-list_web"):/usr/src/app/coverage.xml .
   - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "mypy ."
   - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "flake8"
   - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "cd frontend && npm run test"
   - docker cp $(docker ps -aqf "name=todo-list_web"):/usr/src/app/frontend/coverage .
   - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "cd frontend && npm run eslint"
+  - docker exec -it $(docker ps -aqf "name=todo-list_web") /bin/sh -c "pytest e2e"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -cF python

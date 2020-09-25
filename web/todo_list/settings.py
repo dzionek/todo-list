@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from django.contrib import messages
 
@@ -21,12 +22,17 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nyliwd4qjdpk)9s-x#+dowf=+=p%zf0!$l8(5@&mds^7)w9bw#'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-# ALLOWED_HOSTS = []
+# Checking Optional type for MyPy.
+hosts = os.environ.get("DJANGO_ALLOWED_HOSTS")
+if isinstance(hosts, str):
+    ALLOWED_HOSTS = hosts.split(" ")
+else:
+    raise EnvironmentError("DJANGO_ALLOWED_HOSTS is not defined")
 
 
 # Application definition
@@ -82,9 +88,13 @@ WSGI_APPLICATION = 'todo_list.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("SQL_DATABASE"),
+        "USER": os.environ.get("SQL_USER"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD"),
+        "HOST": os.environ.get("SQL_HOST"),
+        "PORT": os.environ.get("SQL_PORT"),
     }
 }
 
