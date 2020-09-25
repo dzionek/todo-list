@@ -267,7 +267,7 @@ class TestPolls(StaticLiveServerTestCase):
                 self.driver.find_elements_by_class_name('btn-undone'):
             undone_button.click()
 
-        WebDriverWait(self.driver, 20).until(
+        WebDriverWait(self.driver, 30).until(
             lambda driver:
             driver.find_elements_by_class_name('done-item') == []
         )
