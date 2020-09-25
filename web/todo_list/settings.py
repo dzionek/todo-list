@@ -27,7 +27,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+# Checking Optional type for MyPy.
+hosts = os.environ.get("DJANGO_ALLOWED_HOSTS")
+if isinstance(hosts, str):
+    ALLOWED_HOSTS = hosts.split(" ")
+else:
+    raise EnvironmentError("DJANGO_ALLOWED_HOSTS is not defined")
 
 
 # Application definition

@@ -13,7 +13,7 @@ def is_based_on_template(response: HttpResponse, template: str) -> bool:
     return template in (t.name for t in response.templates)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True, reset_sequences=True)
 class TestViews:
     def test_log_in_get(self, client: Client, default_user: User) -> None:
         response = client.get(reverse('account_index'))

@@ -45,7 +45,7 @@ def add_tasks(user: User) -> None:
     )
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True, reset_sequences=True)
 class TestViews:
     def test_task_not_logged_in(self, client: Client) -> None:
         response_list = client.get('/api/tasks/')
