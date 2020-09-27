@@ -20,4 +20,7 @@ RUN apk add --update --no-cache nodejs npm &&\
     npm install --save &&\
     npm run build
 
+# Heroku ps:exec
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
