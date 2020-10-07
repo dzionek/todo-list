@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 import urllib.parse
 import sys
+import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
@@ -262,7 +263,7 @@ class TestPolls(StaticLiveServerTestCase):
         user = User.objects.get(username='testUser')
         self.assertEqual(Task.objects.filter(user=user)
                                      .filter(is_finished=False).count(), 0)
-
+        time.sleep(3)
         for undone_button in \
                 self.driver.find_elements_by_class_name('btn-undone'):
             undone_button.click()
