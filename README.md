@@ -3,7 +3,7 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dzionek/todo-list.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dzionek/todo-list/context:javascript)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/dzionek/todo-list.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dzionek/todo-list/context:python)
-# todo-list
+# Fancy ToDo List
 Yet another ToDo List app made to test full-stack integration. Create an account and then add tasks you need to do. You can mark them as "done", remove them, edit their content, assign them one of 4 colors and then filter them by their color.
 
 Technologies used:
